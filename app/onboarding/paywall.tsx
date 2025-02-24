@@ -9,8 +9,9 @@ import {
 import { useDispatch } from "react-redux";
 import { completeOnboarding } from "@/redux/appSlice";
 import { useRouter } from "expo-router";
-import Footer from "@/components/paywall/Footer";
 
+import Images from "@/assets/images/images";
+import Footer from "@/components/paywall/Footer";
 import Features from "@/components/paywall/Features";
 import Offers from "@/components/paywall/Offers";
 
@@ -25,7 +26,7 @@ const Paywall = () => {
 
   return (
     <ImageBackground
-      source={require("../../assets/images/paywall/background.png")}
+      source={Images.paywall_bg}
       style={styles.background}
       resizeMode="cover"
     >

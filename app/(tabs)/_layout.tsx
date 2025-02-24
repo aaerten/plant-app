@@ -1,9 +1,9 @@
 import { View, StyleSheet, Image } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
+import Images from "@/assets/images/images";
 
 export default function TabLayout() {
-
   return (
     <Tabs
       initialRouteName="home"
@@ -19,7 +19,7 @@ export default function TabLayout() {
           title: "Home",
           tabBarIcon: ({ color }) => (
             <Image
-              source={require("../../assets/images/dashboard/home/home.png")}
+              source={Images.home}
               style={{ resizeMode: "cover", tintColor: color }}
             />
           ),
@@ -31,13 +31,13 @@ export default function TabLayout() {
           title: "Diagnose",
           tabBarIcon: ({ color }) => (
             <Image
-              source={require("../../assets/images/dashboard/diagnose/diagnose.png")}
+              source={Images.diagnose}
               style={{ resizeMode: "cover", tintColor: color }}
             />
           ),
         }}
       />
-            <Tabs.Screen
+      <Tabs.Screen
         name="scan"
         options={{
           title: "",
@@ -45,10 +45,9 @@ export default function TabLayout() {
             <View style={styles.centerButton}>
               <View style={[styles.circle]}>
                 <Image
-                  source={require("../../assets/images/dashboard/scan.png")}
-                  style={{ resizeMode: "cover", tintColor: '#FFFFFF'}}
+                  source={Images.scan}
+                  style={{ resizeMode: "cover", tintColor: "#FFFFFF" }}
                 />
-                {/* <FontAwesome name="leaf" size={24} color="white" /> */}
               </View>
             </View>
           ),
@@ -60,7 +59,7 @@ export default function TabLayout() {
           title: "My Garden",
           tabBarIcon: ({ color }) => (
             <Image
-              source={require("../../assets/images/dashboard/garden/garden.png")}
+              source={Images.garden}
               style={{ resizeMode: "cover", tintColor: color }}
             />
           ),
@@ -72,7 +71,7 @@ export default function TabLayout() {
           title: "Profile",
           tabBarIcon: ({ color }) => (
             <Image
-              source={require("../../assets/images/dashboard/profile/profile.png")}
+              source={Images.profile}
               style={{ resizeMode: "cover", tintColor: color }}
             />
           ),
@@ -92,8 +91,8 @@ const styles = StyleSheet.create({
     width: 75,
     height: 75,
     borderWidth: 4,
-    borderColor: '#2CCC80',
-    borderRadius:'50%',
+    borderColor: "#2CCC80",
+    borderRadius: "50%",
     backgroundColor: "#28AF6E",
     justifyContent: "center",
     alignItems: "center",

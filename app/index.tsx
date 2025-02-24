@@ -9,6 +9,7 @@ import {
   Dimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
+import Images from "@/assets/images/images";
 
 const { height } = Dimensions.get("window");
 
@@ -17,7 +18,7 @@ export default function Starter() {
 
   return (
     <ImageBackground
-      source={require("../assets/images/starter-screen/background.png")}
+      source={Images.starter_screen_bg}
       style={styles.background}
       resizeMode="contain"
     >
@@ -33,7 +34,7 @@ export default function Starter() {
 
         <Image
           style={styles.imageContent}
-          source={require("../assets/images/starter-screen/dummy-content.png")}
+          source={Images.starter_screen_content}
           resizeMode="contain"
         />
         <View style={styles.actionContainer}>
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   subTitle: {
-    width: '75%',
+    width: "75%",
     fontFamily: "Rubik",
     fontSize: 16,
     lineHeight: 22,
@@ -94,8 +95,8 @@ const styles = StyleSheet.create({
     color: "rgba(19,35,27,0.7)",
   },
   imageContent: {
-    height: '73%',
-    width: '100%',
+    height: "73%",
+    width: "100%",
   },
   bold: {
     fontFamily: "Rubik-Bold",
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
   privacyTextLinks: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: 'center'
+    justifyContent: "center",
   },
   privacyTextLink: {
     fontFamily: "Rubik",

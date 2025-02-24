@@ -10,6 +10,7 @@ import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import Images from "@/assets/images/images";
 
 interface GradientTextProps {
   text: string;
@@ -45,10 +46,7 @@ const PremiumBox = () => {
       <View style={styles.contentContainer}>
         <View style={styles.leftSection}>
           <View style={styles.iconContainer}>
-            <Image
-              source={require("../../../assets/images/dashboard/home/premium.png")}
-              style={styles.premiumIcon}
-            />
+            <Image source={Images.premium} style={styles.premiumIcon} />
             <View style={styles.badge}>
               <Text style={styles.badgeText}>1</Text>
             </View>

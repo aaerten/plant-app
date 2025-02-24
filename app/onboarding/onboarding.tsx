@@ -7,18 +7,19 @@ import {
   SafeAreaView,
 } from "react-native";
 import OnboardingItem from "@/components/onboarding/OnboardingItem";
+import Images from "@/assets/images/images";
 import Footer from "@/components/onboarding/Footer";
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 const slides = [
   {
     id: "1",
-    image: require("../../assets/images/onboarding/first-onboarding.png"),
+    image: Images.onboarding_first,
   },
   {
     id: "2",
-    image: require("../../assets/images/onboarding/second-onboarding.png"),
+    image: Images.onboarding_second,
   },
   { id: "3" },
 ];
@@ -38,7 +39,7 @@ export default function Onboarding() {
 
   return (
     <ImageBackground
-      source={require("../../assets/images/onboarding/background.png")}
+      source={Images.onboarding_bg}
       style={styles.background}
       resizeMode="cover"
     >

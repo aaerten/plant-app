@@ -1,19 +1,21 @@
+import Images from "@/assets/images/images";
+
 export const PremiumFeatures = [
   {
     id: "1",
-    image: require("../assets/images/paywall/feature-one.png"),
+    image: Images.paywall_feature_one,
     title: "Unlimited",
     subtitle: "Plant Identify",
   },
   {
     id: "2",
-    image: require("../assets/images/paywall/feature-two.png"),
+    image: Images.paywall_feature_two,
     title: "Faster",
     subtitle: "Process",
   },
   {
     id: "3",
-    image: require("../assets/images/paywall/feature-three.png"),
+    image: Images.paywall_feature_three,
     title: "Detailed",
     subtitle: "Plant care",
   },
@@ -39,3 +41,8 @@ export const PremiumOffers = [
     badge: "Save 50%",
   },
 ];
+
+export const FetchType = {
+  CATEGORIES: "categories",
+  QUESTIONS: "questions",
+};

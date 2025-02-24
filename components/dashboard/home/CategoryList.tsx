@@ -6,10 +6,10 @@ import {
   ImageBackground,
   Dimensions,
   RefreshControl,
-  ActivityIndicator
 } from "react-native";
-import React, { useState, useEffect } from "react";
-import { getData } from "@/api/api";
+import React from "react";
+import { useFetchData } from "@/hooks/useFetchData";
+import { FetchType } from "@/utils/constants";
 
 const screenWidth = Dimensions.get("window").width;
 const cardWidth = screenWidth / 2 - 24;
@@ -34,49 +34,23 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ item }) => (
 );
 
 const CategoryList = () => {
-  const [state, setState] = useState({
-    loading: false,
-    data: null,
-    error: "",
-  });
+  const { data, loading, error, refresh } = useFetchData(FetchType.CATEGORIES);
 
-  const fetchData = () => {
-    setState((prevState) => ({
-      ...prevState,
-      loading: true,
-    }));
-    getData("getCategories")
-      .then((res) => {
-        setState((prevState) => ({
-          ...prevState,
-          data: res.data,
-        }));
-      })
-      .catch((err) => {
-        setState((prevState) => ({
-          ...prevState,
-          error: "Failed to fetch data",
-        }));
-      })
-      .finally(() => {
-        setState((prevState) => ({
-          ...prevState,
-          loading: false,
-        }));
-      });
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={{ color: "red" }}>{error}</Text>;
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <FlatList
         refreshControl={
-          <RefreshControl refreshing={state.loading} onRefresh={fetchData} />
+          <RefreshControl refreshing={loading} onRefresh={refresh} />
         }
-        data={state.data}
+        data={data}
         renderItem={({ item }) => <CategoryItem item={item} />}
         keyExtractor={(item) => item.id}
         numColumns={2}

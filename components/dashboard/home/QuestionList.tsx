@@ -7,11 +7,12 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect } from "react";
-import { getData } from "@/api/api";
-import { useRouter } from 'expo-router';
-import { setSelectedItem } from "@/redux/appSlice";
+import React from "react";
+import { useRouter } from "expo-router";
 import { useDispatch } from "react-redux";
+import { setSelectedItem } from "@/redux/appSlice";
+import { useFetchData } from "@/hooks/useFetchData";
+import { FetchType } from "@/utils/constants";
 
 interface QuestionItemProps {
   item: {
@@ -29,55 +30,22 @@ const QuestionItem: React.FC<QuestionItemProps> = ({ item }) => {
     router.push("/webview");
   };
   return (
-  <TouchableOpacity onPress={handlePress}>
-  <ImageBackground
-    source={{ uri: item?.image_uri }}
-    resizeMode="cover"
-    style={styles.questionItem}
-  >
-    <Text style={styles.questionItemTitle}>{item?.title}</Text>
-  </ImageBackground>
-  </TouchableOpacity>
-)};
+    <TouchableOpacity onPress={handlePress}>
+      <ImageBackground
+        source={{ uri: item?.image_uri }}
+        resizeMode="cover"
+        style={styles.questionItem}
+      >
+        <Text style={styles.questionItemTitle}>{item?.title}</Text>
+      </ImageBackground>
+    </TouchableOpacity>
+  );
+};
 
 const QuestionList = () => {
-  const [state, setState] = useState({
-    loading: false,
-    data: null,
-    error: "",
-  });
+  const { data, loading, error } = useFetchData(FetchType.QUESTIONS);
 
-  const fetchData = () => {
-    setState((prevState) => ({
-      ...prevState,
-      loading: true,
-    }));
-    getData("getQuestions")
-      .then((res) => {
-        setState((prevState) => ({
-          ...prevState,
-          data: res,
-        }));
-      })
-      .catch((err) => {
-        setState((prevState) => ({
-          ...prevState,
-          error: "Failed to fetch data",
-        }));
-      })
-      .finally(() => {
-        setState((prevState) => ({
-          ...prevState,
-          loading: false,
-        }));
-      });
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  if (state.loading) {
+  if (loading) {
     return (
       <View style={styles.container}>
         <View style={styles.loadingOverlay}>
@@ -87,16 +55,24 @@ const QuestionList = () => {
     );
   }
 
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={{ color: "red" }}>{error}</Text>;
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Get Started</Text>
       <FlatList
         bounces={false}
+        data={data}
         horizontal
-        showsHorizontalScrollIndicator={false}
-        data={state.data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <QuestionItem item={item} />}
+        showsHorizontalScrollIndicator={false}
       />
     </View>
   );

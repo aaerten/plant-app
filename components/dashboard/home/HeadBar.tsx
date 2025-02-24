@@ -5,26 +5,20 @@ import {
   TextInput,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
+import Images from "@/assets/images/images";
 
 const HeadBar = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-
   return (
     <ImageBackground
-      source={require("../../../assets/images/dashboard/home/headbar-background.png")}
+      source={Images.home_headbar_bg}
       style={styles.background}
       resizeMode="contain"
     >
       <View style={styles.content}>
         <Text style={styles.title}>Hi, plant lover!</Text>
         <Text style={styles.greetingTitle}>Good Afternoon! ⛅</Text>
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Search for plants"
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
+        <TextInput style={styles.searchBar} placeholder="Search for plants" />
       </View>
     </ImageBackground>
   );
