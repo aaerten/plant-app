@@ -76,11 +76,7 @@ function RootLayoutNav() {
 
   return (
     <>
-      {onboardingCompleted ? (
-        <Redirect href="/(tabs)/home" />
-      ) : (
-        <Redirect href="/" />
-      )}
+      {onboardingCompleted && <Redirect href="/(tabs)/home" />}
       <ThemeProvider value={DefaultTheme}>
         <Stack
           screenOptions={{ headerShown: false }}
