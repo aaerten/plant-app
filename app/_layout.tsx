@@ -21,7 +21,6 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     Rubik: Rubik_400Regular,
     "Rubik-Light": Rubik_300Light,
     "Rubik-Medium": Rubik_500Medium,
