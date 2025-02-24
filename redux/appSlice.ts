@@ -1,9 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getData } from "@/api/api";
 
+interface SelectedItem {
+  id: number;
+  uri: string;
+}
+
 interface AppState {
   onboardingCompleted: boolean;
-  selectedItem: any;
+  selectedItem: SelectedItem | null;
   questions: any[];
   categories: any[];
   loading: boolean;

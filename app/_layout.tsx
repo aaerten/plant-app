@@ -1,9 +1,8 @@
-import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { Stack, Redirect } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "react-native-reanimated";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { store, RootState } from "@/redux/store";
@@ -16,7 +15,6 @@ import {
   Rubik_300Light,
   Rubik_500Medium,
 } from "@expo-google-fonts/rubik";
-
 export { ErrorBoundary } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
@@ -53,7 +51,7 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const [loading, setLoading] = useState(true);
+  const [initialRoute, setInitialRoute] = useState<string | null>(null);
   const dispatch = useDispatch();
   const onboardingCompleted = useSelector(
     (state: RootState) => state.app.onboardingCompleted
@@ -63,22 +61,32 @@ function RootLayoutNav() {
     const value = await AsyncStorage.getItem("onboardingCompleted");
     if (value === "true") {
       dispatch(completeOnboarding());
+      setInitialRoute("(tabs)");
+    } else {
+      setInitialRoute("index");
     }
-    setLoading(false);
   };
 
   useEffect(() => {
     checkOnboardingStatus();
   }, [dispatch]);
 
-  if (loading) return null;
+  if (initialRoute === null) {
+    return null;
+  }
 
   return (
     <>
-      {onboardingCompleted ? <Redirect href="/(tabs)/home" /> : <Redirect href="/" />}
-      
+      {onboardingCompleted ? (
+        <Redirect href="/(tabs)/home" />
+      ) : (
+        <Redirect href="/" />
+      )}
       <ThemeProvider value={DefaultTheme}>
-        <Stack screenOptions={{ headerShown: false }}>
+        <Stack
+          screenOptions={{ headerShown: false }}
+          initialRouteName={initialRoute}
+        >
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="index" />
           <Stack.Screen
