@@ -4,7 +4,7 @@ A modern mobile application built with Expo and React Native, featuring onboardi
 
 ## 📱 Demo
 
-![Image](https://github.com/user-attachments/assets/33903c69-c336-4466-91f0-b6fdeb55eef2)
+![Image](https://github.com/user-attachments/assets/34ab7a96-a982-4641-a313-78c6a8c23578)
 
 ## ✨ Features
 
