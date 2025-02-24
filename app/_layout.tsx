@@ -1,6 +1,7 @@
+import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
-import { Stack } from "expo-router";
+import { Stack, Redirect } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import "react-native-reanimated";
@@ -17,10 +18,6 @@ import {
 } from "@expo-google-fonts/rubik";
 
 export { ErrorBoundary } from "expo-router";
-
-export const unstable_settings = {
-  initialRouteName: "index",
-};
 
 SplashScreen.preventAutoHideAsync();
 
@@ -62,34 +59,38 @@ function RootLayoutNav() {
     (state: RootState) => state.app.onboardingCompleted
   );
 
+  const checkOnboardingStatus = async () => {
+    const value = await AsyncStorage.getItem("onboardingCompleted");
+    if (value === "true") {
+      dispatch(completeOnboarding());
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
-    AsyncStorage.getItem("onboardingCompleted").then((value) => {
-      if (value === "true") {
-        dispatch(completeOnboarding());
-      }
-      setLoading(false);
-    });
+    checkOnboardingStatus();
   }, [dispatch]);
 
   if (loading) return null;
 
   return (
-    <ThemeProvider value={DefaultTheme}>
-      <Stack screenOptions={{ headerShown: false }}>
-        {onboardingCompleted ? (
+    <>
+      {onboardingCompleted ? <Redirect href="/(tabs)/home" /> : <Redirect href="/" />}
+      
+      <ThemeProvider value={DefaultTheme}>
+        <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" />
-        ) : (
           <Stack.Screen name="index" />
-        )}
-        <Stack.Screen
-          name="webview"
-          options={{
-            headerShown: true,
-            headerBackTitle: "Go Back",
-            headerTitleStyle: { color: "#FFFFFF" },
-          }}
-        />
-      </Stack>
-    </ThemeProvider>
+          <Stack.Screen
+            name="webview"
+            options={{
+              headerShown: true,
+              headerBackTitle: "Go Back",
+              headerTitleStyle: { color: "#FFFFFF" },
+            }}
+          />
+        </Stack>
+      </ThemeProvider>
+    </>
   );
 }

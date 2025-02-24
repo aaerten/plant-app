@@ -9,6 +9,7 @@ import {
 import { useDispatch } from "react-redux";
 import { completeOnboarding } from "@/redux/appSlice";
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Images from "@/assets/images/images";
 import Footer from "@/components/paywall/Footer";
@@ -19,7 +20,8 @@ const Paywall = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const complete = () => {
+  const complete = async () => {
+    await AsyncStorage.setItem("onboardingCompleted", "true");
     dispatch(completeOnboarding());
     router.replace("/home");
   };

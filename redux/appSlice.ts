@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getData } from "@/api/api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AppState {
   onboardingCompleted: boolean;
@@ -50,7 +49,6 @@ const appSlice = createSlice({
   reducers: {
     completeOnboarding: (state) => {
       state.onboardingCompleted = true;
-      AsyncStorage.setItem("onboardingCompleted", "true");
     },
     setSelectedItem: (state, action) => {
       state.selectedItem = action.payload;
